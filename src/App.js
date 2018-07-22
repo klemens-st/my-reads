@@ -21,10 +21,13 @@ class BooksApp extends React.Component {
 
   changeShelf = (book) => {
     this.setState((state) => ({
-      books: state.books.map((oldBook) => {
-        if (book.id !== oldBook.id) return oldBook;
-        return book;
-      })
+      // Get all books except the one we are changing
+      // If we are adding a new book we will simply get
+      // the entire array from state.
+      // Then push our new book to the array.
+      books: state.books.filter((oldBook) => (
+        oldBook.id !== book.id
+      )).concat([book])
     }));
   }
 
