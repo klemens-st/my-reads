@@ -15,7 +15,6 @@ class BooksApp extends React.Component {
     // Only returns books assigned to shelves
     BooksAPI.getAll().then((books) => {
       this.setState({books});
-      console.log(books);
     });
   }
 
@@ -29,6 +28,8 @@ class BooksApp extends React.Component {
         oldBook.id !== book.id
       )).concat([book])
     }));
+
+    BooksAPI.update(book, book.shelf);
   }
 
   render() {

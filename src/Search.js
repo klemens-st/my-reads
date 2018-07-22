@@ -39,8 +39,10 @@ class Search extends Component {
         results = results.filter((book) => !currentIDs.includes(book.id))
           .concat(this.props.books);
         // Attempt to solve the 'holding backspace' bug.
-        // Attempt successful, but this took a lot of time to figure out.
-        '' === state.query && (results = []);
+        // Also need to solve an anologous bug when a user types ver fast
+        // SOLVED: This is asynchronous so let's just
+        // compare current state.query with our original query
+        query !== state.query && (results = []);
         return {results};
       });
     }).catch(() => {
