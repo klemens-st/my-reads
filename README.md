@@ -44,7 +44,6 @@ The 'plus' sign in the bottom left hand side of the app will take you to the sea
 
 * [React](https://reactjs.org/)
 * [Node](https://nodejs.org/en/) - Dependency Management
-* [ROME](https://rometools.github.io/rome/) - Used to generate RSS Feeds
 
 ## Create React App
 
