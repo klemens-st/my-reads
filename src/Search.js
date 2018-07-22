@@ -32,7 +32,6 @@ class Search extends Component {
     // To shelves and get them from App state
     const currentIDs = this.props.books.map((book) => book.id);
     search(query.trim()).then((results) => {
-      console.log(results);
       if (!results || 'error' in results) throw new Error('Invalid results');
 
       this.setState((state) => {
@@ -42,7 +41,7 @@ class Search extends Component {
         // Also need to solve an anologous bug when a user types ver fast
         // SOLVED: This is asynchronous so let's just
         // compare current state.query with our original query
-        query !== state.query && (results = []);
+        query !== state.query && (results = state.results);
         return {results};
       });
     }).catch(() => {
