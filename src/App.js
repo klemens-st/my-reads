@@ -16,6 +16,15 @@ class BooksApp extends React.Component {
     });
   }
 
+  changeShelf = (book) => {
+    this.setState((state) => ({
+      books: state.books.map((oldBook) => {
+        if (book.id !== oldBook.id) return oldBook;
+        return book;
+      })
+    }));
+  }
+
   render() {
     return (
       <div className="app">
@@ -41,7 +50,10 @@ class BooksApp extends React.Component {
             </div>
           </div>
         ) : (
-          <ListBooks books={this.state.books} />
+          <ListBooks
+            books={this.state.books}
+            changeShelf={this.changeShelf}
+          />
         )}
       </div>
     );
