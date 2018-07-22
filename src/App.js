@@ -12,6 +12,7 @@ class BooksApp extends React.Component {
   }
 
   componentDidMount() {
+    // Only returns books assigned to shelves
     BooksAPI.getAll().then((books) => {
       this.setState({books});
       console.log(books);
@@ -31,7 +32,10 @@ class BooksApp extends React.Component {
     return (
       <div className="app">
         <Route path="/search" render={() => (
-          <Search />
+          <Search
+            books={this.state.books}
+            changeShelf={this.changeShelf}
+          />
         )}/>
         <Route exact path="/" render={() => (
           <ListBooks
