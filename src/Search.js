@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
-import { search } from './BooksAPI';
+import * as BooksAPI from './BooksAPI';
 import Book from './Book';
 
 class Search extends Component {
@@ -28,15 +28,17 @@ class Search extends Component {
   }
 
   fetchResults(query) {
-    // Filter out books that are already assigned
-    // To shelves and get them from App state
-    const currentIDs = this.props.books.map((book) => book.id);
-    search(query.trim()).then((results) => {
+
+    BooksAPI.search(query.trim()).then((results) => {
       if (!results || 'error' in results) throw new Error('Invalid results');
 
       this.setState((state) => {
-        results = results.filter((book) => !currentIDs.includes(book.id))
-          .concat(this.props.books);
+        // Filter out books that are already assigned
+        // To shelves and get them from App state
+        results = results.map((book) => (
+          this.props.books.filter((b) => b.id === book.id).pop() ||
+          book
+        ));
         // Attempt to solve the 'holding backspace' bug.
         // Also need to solve an anologous bug when a user types ver fast
         // SOLVED: This is asynchronous so let's just
